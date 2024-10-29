@@ -1,0 +1,12 @@
+global proc FindFileFunction() {};
+string $FunctionInfo = `whatIs FindFileFunction`;
+string $FunctionPath = `substring $FunctionInfo 25 999`;
+string $ProjectDir = `dirname $FunctionPath`;
+
+string $PythonCmd = "import sys;";
+$PythonCmd += "sys.path.append('" + $ProjectDir + "');";
+$PythonCmd += "import installPython;";
+$PythonCmd += "import importlib; importlib.reload(installPython);";
+$PythonCmd += "installPython.Run()";
+
+python($PythonCmd);
